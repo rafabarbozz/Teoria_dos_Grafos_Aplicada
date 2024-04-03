@@ -27,8 +27,8 @@ class Karger:
                     lista_aresta_copy.append((aresta_escolhida[0], elemento))
             
             
-            # Loop usado para retirar as arestas que o segundo elemento da aresta escolhida possui na lista de arestas, se usar o remove pode dar problema com 
-            # elementos sendo pulados
+            # Loop usado para retirar as arestas que o segundo elemento da aresta escolhida possui na lista de arestas, 
+            # se usar o remove pode dar problema com elementos sendo pulados
             lista_aresta_copy = [aresta for aresta in lista_aresta_copy if aresta_escolhida[1] not in aresta]
     
                  
@@ -42,6 +42,7 @@ class Karger:
         corte_minimo = float('inf')
         for _ in range(n):
             qtd_corte, lista_adj = (self.run())
+            
             if qtd_corte < corte_minimo:
                 corte_minimo = qtd_corte
         
