@@ -21,7 +21,7 @@ def ler_grafo(caminho):
     lista_aresta = []
     for n, lista in enumerate(lista_adj):
         for elemento in lista:
-            if [n+1, elemento] not in lista_aresta and [elemento, n+1] not in lista_aresta:
-                lista_aresta.append([n+1, elemento])
+            if (n+1, elemento) not in lista_aresta and (elemento, n+1)not in lista_aresta:
+                lista_aresta.append((n+1, elemento))
 
     return lista_adj, lista_aresta

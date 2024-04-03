@@ -16,7 +16,7 @@ class Krager:
         lista_adj_copy = self.lista_adj.copy()
         
         while lista_adj_copy.count([]) < (len(lista_adj_copy) - 2): # Se só restarem 2 vértices não vazios finaliza o loop
-            aresta_escolhida = sample(lista_aresta_copy, 1)[0]
+            aresta_escolhida = sample(lista_aresta_copy, 1)[0] # Escolhendo uma aresta aleatoriamente
             
             print(f'Aresta escolhida: {aresta_escolhida}')  
             print(f'Lista_adj antes: {lista_adj_copy}') 
@@ -29,11 +29,11 @@ class Krager:
                     lista_adj_copy[aresta_escolhida[0] - 1].append(elemento)
                 
                 # Adicionando a lista de aresta todas as arestas do segundo elemento para o primeiro
-                if [aresta_escolhida[0], elemento] not in lista_aresta_copy and [elemento, aresta_escolhida[0]] and elemento != aresta_escolhida[0]:
-                    lista_aresta_copy.append([aresta_escolhida[0], elemento])
+                if (aresta_escolhida[0], elemento) not in lista_aresta_copy and (elemento, aresta_escolhida[0]) and elemento != aresta_escolhida[0]:
+                    lista_aresta_copy.append((aresta_escolhida[0], elemento))
             
              
-            # Loop usado para retirar as arestas que o segundo elemento da aresta escolhida possui
+            # Loop usado para retirar as arestas que o segundo elemento da aresta escolhida possui na lista de arestas
             for aresta in lista_aresta_copy:
                 if aresta[0] == aresta_escolhida[1]:
                     lista_aresta_copy.remove(aresta)
