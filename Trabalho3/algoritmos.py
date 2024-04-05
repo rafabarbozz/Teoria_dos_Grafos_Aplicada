@@ -16,28 +16,32 @@ class Karger:
         lista_vertices = [vertice for vertice in range(1, len(self.lista_adj) + 1)]
 
         while len(lista_vertices) > 2: # Se só restarem 2 vértices não vazios finaliza o loop
-            #seed(1)
-            aresta_escolhida = sample(lista_aresta_copy, 1)[0] # Escolhendo uma aresta aleatoriamente
-         #   print(f'Aresta escolhida: {aresta_escolhida}')
-         #   print(f'Lista vertices antes: {lista_vertices}')
+            #seed(8)
+            aresta_escolhida = lista_aresta_copy[randint(0, len(lista_aresta_copy) - 1)] # Escolhendo uma aresta aleatoriamente
+            #print(f'Aresta escolhida: {aresta_escolhida}')
+            #print(f'Lista vertices antes: {lista_vertices}')
             lista_vertices.remove(aresta_escolhida[1]) # removendo o vértice que se refere ao segundo elemento da aresta escolhida
-        #    print(f'Lista aresta antes: {sorted(lista_aresta_copy, key=lambda x: (x[0], x[1]))}')
-         #   print(f'Lista adj antes: {lista_adj_modificada}\n')
+            #print(f'Lista aresta antes: {sorted(lista_aresta_copy, key=lambda x: (x[0], x[1]))}')
+            #print(f'Lista adj antes: {lista_adj_modificada}\n')
             
         
         
             for i in range(len(lista_adj_modificada)):
                 if aresta_escolhida[1] in lista_adj_modificada[i]: # Retirando todos os vertices ligados ao vertice retirado(aresta_escolhida[1])
-                    # Substituindo todos as listas que possuem a aresta_escolhida[1] e trocando por aresta_escolhida[0]
-                    lista_adj_modificada = [[aresta_escolhida[0] if valor == aresta_escolhida[1] else valor for valor in lista] for lista in lista_adj_modificada]
-                    
                     if i+1 != aresta_escolhida[0]: # Se a lista do vertice for diferente da aresta_escolhida[0], colocando na lista o vértice (aresta_escolhida[0])
                         lista_adj_modificada[i].append(aresta_escolhida[0])
+                    
+                    if i+1 == aresta_escolhida[0]: # Adicionando na lista do aresta_escolhida[0] a lista_adj_modificada do aresta_escolhida[1]
+                        for elemento in lista_adj_modificada[aresta_escolhida[1] - 1]:
+                            if elemento != aresta_escolhida[0]:
+                                lista_adj_modificada[i].append(elemento)
                         
-                        
+                    
+                    lista_adj_modificada[i] = [valor for valor in lista_adj_modificada[i] if valor != aresta_escolhida[1]]  # removendo todos os aresta_escolhida[1] de todas a sublistas de lista_adj_modificada
+            
             
             for elemento in (lista_adj_modificada[aresta_escolhida[1] - 1]):
-                # Adicionando na lista aux do primeiro elemento todos os vertices do segundo elemento tirando ele mesmo
+                # Adicionando na lista_adj_modificada do primeiro elemento todos os vertices do segundo elemento tirando ele mesmo
                 if elemento not in lista_adj_modificada[aresta_escolhida[0] - 1] and elemento != aresta_escolhida[0]:
                     lista_adj_modificada[aresta_escolhida[0] - 1].append(elemento)
                 
@@ -59,14 +63,14 @@ class Karger:
 
                     
             
-       #     print(f'Lista vertices depois: {lista_vertices}')
-        #    print(f'Lista aresta depois: {sorted(lista_aresta_copy, key=lambda x: (x[0], x[1]))}')
-        #    print(f'Lista adj depois: {lista_adj_modificada}')
-        #    print('\n')
-        #
-       # print(len(lista_adj_modificada[lista_vertices[1] - 1]))
+            #print(f'Lista vertices depois: {lista_vertices}')
+            #print(f'Lista aresta depois: {sorted(lista_aresta_copy, key=lambda x: (x[0], x[1]))}')
+            #print(f'Lista adj depois: {lista_adj_modificada}')
+            #print('\n')
+        
+        #print(len(lista_aresta_copy))
             
-        return len(lista_adj_modificada[lista_vertices[1] - 1])
+        return len(lista_aresta_copy)
     
 
     def executar_n(self, n):
@@ -96,13 +100,14 @@ class Ingenuo:
     def run(self):
         # Criando o corte
         vertices = [i for i in range(1, len(self.lista_adj) + 1)]
+        
         grupo_A = []
         for _ in range(len(self.lista_adj)):
             num_aleatorio = randint(1, len(self.lista_adj))
             
             if num_aleatorio not in grupo_A:
-                grupo_A.append(num_aleatorio)        
-        
+                grupo_A.append(num_aleatorio)
+                
         grupo_B = [vertice for vertice in vertices if vertice not in grupo_A]
         
         # Criando a duas listas de arestas

@@ -11,7 +11,7 @@ lista_adj, lista_aresta = ler_grafo(f'./instancias/in/{nome_arquivo}')
 algoritmo = Karger(lista_adj, lista_aresta)
 
 n_exec = 100
-n_iter = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65]
+n_iter = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
 probabilidades_karger = []
 min_corte_correto = int(open(f"./Instancias/out/{nome_arquivo}", 'r').readlines()[0])
