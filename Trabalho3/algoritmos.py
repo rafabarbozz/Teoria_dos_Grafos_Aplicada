@@ -24,7 +24,7 @@ class Karger:
             #print(f'Lista aresta antes: {sorted(lista_aresta_copy, key=lambda x: (x[0], x[1]))}')
             #print(f'Lista adj antes: {lista_adj_modificada}\n')
             
-        
+            print('git teste')
         
             for i in range(len(lista_adj_modificada)):
                 if aresta_escolhida[1] in lista_adj_modificada[i]: # Retirando todos os vertices ligados ao vertice retirado(aresta_escolhida[1])
